@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class='d-flex'>
+            <div class='mr-auto p-2 row'>
+                <h2 class='ml-2'>Hello {{request.session.name}}!</h2>
+            </div>
+            <div class='mr-2 p-2'>
+                <a href="/log_out">Log out </a>
+
+            </div>
+        </div>
+
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+
+        <form action='/trips/add_trip' method="POST">
+            {% csrf_token %}
+            <div class="form-group row pl-3 pt-3">
+                <label class='col-sm-2' for="dest">Destination: </label>
+                <div class='col-sm-6'>
+                    <input type="text" name='dest' class="form-control" id="text">
+                </div>
+            </div>
+
+            <div class="form-group row pl-3">
+                <label class='col-sm-2' for="dest">Start Date: </label>
+                <div class='col-sm-3'>
+                    <input type="date" name='start_date' class="form-control" id="text">
+                </div>
+            </div>
+
+
+            <div class="form-group row pl-3">
+                <label class='col-sm-2' for="dest">End Date: </label>
+                <div class='col-sm-3'>
+                    <input type="date" name='end_date' class="form-control" id="text">
+                </div>
+            </div>
+
+            <div class="form-group row pl-3">
+                <label class='col-sm-2' for="plan">Plan</label>
+                <div class='col-sm-6'>
+                    <textarea class="form-control" name='plan' id="plan" rows="3"></textarea>
+                </div>
+            </div>
+            <a class="ml-2 btn btn-secondary" href="/dashboard">Cancel</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div class='container'>
+        <div class='d-flex'>
+            <div class='mr-auto p-2 row'>
+                <h2 class='ml-2'>Hello {{request.session.name}}! Read about this trip!</h2>
+            </div>
+            <div class='mr-2 p-2'>
+                <a class='mr-5' href="/dashboard"><u>Dashboard</u></a>
+                <a href="/log_out"><u>Log out</u></a>
+            </div>
+        </div>
+
+        <h5>{{trip.destination}}</h5>
+        <div class="border col-sm-5">
+            <ul class='list-unstyled'>
+                <li>Start Date: {{trip.start_date}}</li>
+                <li>End Date: {{trip.end_date}}</li>
+                <li>Created On: {{trip.created_at}}</li>
+                <li>Last Updated: {{trip.updated_at}}</li>
+                <li>Plan: {{trip.plan}}</li>
+                <li>Created by: {{trip.created_by.first_name}}</li>
+                
+            </ul>
+        </div>
+
+        <div class="border col-sm-5 mt-5">
+            <p>People who've joined the trip:</p>
+            <ul class='list-unstyled'>
+                
+                {% for u in trip.user.all %}
+                {% if u.first_name != trip.created_by.first_name %}
+                <li class='pl-2'>{{u.first_name}}</li>
+                {% endif %}
+                {% endfor %}
+                
+            </ul>
+        </div>
+
+    </div>
+</body>
+
+</html>
